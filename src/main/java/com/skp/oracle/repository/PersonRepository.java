@@ -58,7 +58,7 @@ public class PersonRepository {
         }
     };*/
     
-    public int createPerson(Map<String,String> employee) throws SQLException {
+    public int createPerson(Map<String,Object> employee) throws SQLException {
         System.out.println("Add an employees to departmernt :" + employee.toString());
         List<String> jsonValue= new ArrayList<String>();
         
@@ -101,6 +101,14 @@ public class PersonRepository {
             
             for (String key : employee.keySet()) {
         	    Object value = employee.get(key);
+        	    if(value instanceof Map) {
+        	    	Map<String,String> map =(Map)value;
+        	    	for (String key1 : map.keySet()) {
+                	    Object value1 = map.get(key1);
+                	    ps.setObject( ++i, value1);
+        	    	}
+        	    	
+        	    }
         	    ps.setObject( ++i, value);
         	}
             

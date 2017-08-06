@@ -35,6 +35,6 @@ public class PersonController {
 		log.info("controller getLineItem");
 		ObjectMapper oMapper = new ObjectMapper();
 		 Map<String, Object> map = oMapper.convertValue(person, Map.class);
-		return repo.createPerson(null);
+		return repo.createPerson(map);
 	}	
 }

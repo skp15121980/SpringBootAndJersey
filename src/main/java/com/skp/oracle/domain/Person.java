@@ -75,17 +75,11 @@ public class Person {
 	}
 	@JsonAnyGetter
 	public void setChild(Map<String, String> child) {
-		if(child instanceof Map){
+		/*if(child instanceof Map){
             this.child.putAll((Map<String, String>) child);
-        }
+        }*/
+		this.child=child;
 	}
-	public void add(String key, String value) {
-		child.put(key, value);
-	   }
-
-	   public void addAll(Map<String, String> map) {
-		   child.putAll(map);
-	   }
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", title=" + title

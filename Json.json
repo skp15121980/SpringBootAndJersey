@@ -1,9 +1,9 @@
 {
-  "firstName" : "Sunil121",
-  "lastName" : "Pandey121",
-  "title" : "Master",
-  "child" : {
-    "child1" : "satvik",
-    "child2" : "Akshat"
-  }
+	"firstName": "Sunil121",
+	"lastName": "Pandey121",
+	"title": "Master",
+	"child": {
+		"child1": "satvik",
+		"child2": "Akshat"
+	}
 }
