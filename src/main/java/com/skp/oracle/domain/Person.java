@@ -33,7 +33,7 @@ public class Person {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.title = title;
-		this.child = child;
+		//this.child = child;
 	}
 
 
@@ -69,21 +69,21 @@ public class Person {
 		this.title = title;
 	}
 
-	@JsonAnyGetter
+	//@JsonAnyGetter
 	public Map<String, String> getChild() {
 		return child;
 	}
-	@JsonAnyGetter
+	//@JsonAnyGetter
 	public void setChild(Map<String, String> child) {
 		/*if(child instanceof Map){
             this.child.putAll((Map<String, String>) child);
         }*/
 		this.child=child;
 	}
-	@Override
+	/*@Override
 	public String toString() {
 		return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", title=" + title
 				+ ", child=" + child + "]";
-	}
+	}*/
 
 }
