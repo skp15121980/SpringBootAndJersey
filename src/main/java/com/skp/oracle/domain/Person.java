@@ -3,14 +3,15 @@ package com.skp.oracle.domain;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Person {
 
-	@JsonProperty("id")
-	private Long id;
+	@JsonProperty("taskId")
+	private UUID taskId;
 	
 	@JsonProperty("firstName")
 	private String firstName;
@@ -27,23 +28,24 @@ public class Person {
 		
 	}
 
-	public Person(Long id, String firstName, String lastName, String title, Map<String, String> child) {
+	public Person(UUID taskId, String firstName, String lastName, String title) {
 		super();
-		this.id = id;
+		this.taskId = taskId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.title = title;
-		//this.child = child;
 	}
 
 
-	public Long getId() {
-		return id;
+	public UUID getTaskId() {
+		return taskId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setTaskId(UUID taskId) {
+		this.taskId = taskId;
 	}
+
 
 	public String getFirstName() {
 		return firstName;

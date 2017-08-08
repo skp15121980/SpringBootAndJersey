@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.sql.DataSource;
 
@@ -59,7 +60,7 @@ public class PersonRepository {
         }
     };*/
     
-    public int createPerson(Map<String,Object> employee) throws SQLException {
+    public UUID createPerson(Map<String,Object> employee) throws SQLException {
         System.out.println("Add an employees to departmernt :" + employee.toString());
         List<String> jsonValue= new ArrayList<String>();
         
@@ -68,12 +69,12 @@ public class PersonRepository {
        // String newlyAddedColumnStr=String.join(",", newlyAddedColumn);
         String columnStr=String.join(",", columns);
         StringBuilder wildCard = DBUtil.getWildCard();
-        String insertSql = "INSERT INTO Person ("+columnStr+") values ( PERSON_NEXT.NEXTVAL,"+wildCard+")";
+        String insertSql = "INSERT INTO LTM_TASK ("+columnStr+") values ( PERSON_NEXT.NEXTVAL,"+wildCard+")";
         PreparedStatementCreator ps = new PreparedStatementCreator() {
     	@Override
           public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
             final PreparedStatement ps =
-                connection.prepareStatement(insertSql, new String[]{"ID"});
+                connection.prepareStatement(insertSql, new String[]{"TASK_ID"});
            
             
             /* ps.setString(1, employee.getName());
@@ -134,6 +135,6 @@ public class PersonRepository {
         
         //employee.setId(holder.getKey().intValue());
         
-        return holder.getKey().intValue();
+        return UUID.randomUUID();
       }
 }

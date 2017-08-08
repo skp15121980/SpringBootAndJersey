@@ -2,6 +2,7 @@ package com.skp.oracle.controller;
 
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class PersonController {
 		return repo.getPerson(personId);
 	}	
 	@RequestMapping( method = RequestMethod.POST)
-	public int createPerson(@RequestBody Person person) throws SQLException {
+	public UUID createPerson(@RequestBody Person person) throws SQLException {
 		log.info("controller getLineItem");
 		ObjectMapper oMapper = new ObjectMapper();
 		 Map<String, Object> map = oMapper.convertValue(person, Map.class);

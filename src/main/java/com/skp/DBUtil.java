@@ -20,7 +20,7 @@ public static List<String> getTableColumns(JdbcTemplate jdbcTemplate) throws SQL
 	//Map<String,Integer> columns=new LinkedHashMap<String,Integer>();
 	List<String> columns = new ArrayList<String>();
 	 wildCard =new StringBuilder();
-	jdbcTemplate.query("select * from Person",new ResultSetExtractor<Integer>() {
+	jdbcTemplate.query("select * from LTM_TASK",new ResultSetExtractor<Integer>() {
 
 	    @Override
 	    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
