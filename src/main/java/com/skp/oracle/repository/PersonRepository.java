@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -91,27 +92,37 @@ public class PersonRepository {
             //ResultSetMetaData rsmd = rs.getMetaData();
            // while( rs.next() )
            // {    inti=0
-            int i=0;
+            
            // String[] array=jsonValue.toArray(new String[jsonValue.size()]);
             //for (String s: jsonValue) {  
                 	//System.out.println( jsonValue.get(i)+" :: "+entry.getValue());
                     //ps.setObject( ++i, array[i], entry.getValue() );
                  //   ps.setObject( ++i, s);
                // }
-            
+            List<Object> values=new LinkedList<Object>();
             for (String key : employee.keySet()) {
         	    Object value = employee.get(key);
         	    if(value instanceof Map) {
         	    	Map<String,String> map =(Map)value;
         	    	for (String key1 : map.keySet()) {
                 	    Object value1 = map.get(key1);
-                	    ps.setObject( ++i, value1);
+                	    //System.out.println("Index :"+ ++i+"value1 : "+value1 );
+                	    values.add(value1);
+                	    //ps.setObject( ++i, value1);
         	    	}
-        	    	
+        	    	  
+        	    }else {
+        	    	if(value !=null)
+        	    	 values.add(value);
         	    }
-        	    ps.setObject( ++i, value);
+        	    //System.out.println("Index :"+ ++i+"value : "+value );
+        	   
+        	   // ps.setObject( ++i, value);
         	}
-            
+            int i=0;
+            for(Object val :values) {
+            	 ps.setObject( ++i, val);
+            }
             //}
             //return ps;
 				return ps;
