@@ -1,12 +1,18 @@
 package com.skp.oracle.domain;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class Person {
 
@@ -22,18 +28,24 @@ public class Person {
 	@JsonProperty("title")
 	private String title;
 	
+	  @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	@JsonProperty("dob")
+	private Date dob;
+	
 	@JsonProperty("child")
 	private Map<String,String> child = new HashMap<String, String>();
 	public Person() {
 		
 	}
 
-	public Person(UUID taskId, String firstName, String lastName, String title) {
+	public Person(UUID taskId, String firstName, String lastName, String title, Date dob) {
 		super();
 		this.taskId = taskId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.title = title;
+		this.dob = dob;
 	}
 
 
@@ -87,5 +99,13 @@ public class Person {
 		return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", title=" + title
 				+ ", child=" + child + "]";
 	}*/
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
 
 }
