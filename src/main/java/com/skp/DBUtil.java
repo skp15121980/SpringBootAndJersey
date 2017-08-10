@@ -15,46 +15,50 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 public class DBUtil {
-	static StringBuilder wildCard =new StringBuilder();
-public static List<String> getTableColumns(JdbcTemplate jdbcTemplate) throws SQLException {
-	//Map<String,Integer> columns=new LinkedHashMap<String,Integer>();
-	List<String> columns = new ArrayList<String>();
-	 wildCard =new StringBuilder();
-	jdbcTemplate.query("select * from LTM_TASK",new ResultSetExtractor<Integer>() {
+	static StringBuilder wildCard = new StringBuilder();
 
-	    @Override
-	    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+	public static List<String> getTableColumns(JdbcTemplate jdbcTemplate) throws SQLException {
+		// Map<String,Integer> columns=new LinkedHashMap<String,Integer>();
+		List<String> columns = new ArrayList<String>();
+		//wildCard = new StringBuilder();
+		// jdbcTemplate.query("select * from LTM_TASK1",new
+		// ResultSetExtractor<Integer>() {
 
-	    	Map<String, Integer> map =new ResultSetHelper().ResultSetHelper(rs);
-	    	for (String key : map.keySet()) {
-	    	    Integer value = map.get(key);
-	    	    System.out.println("Key = " + key + ", Value = " + value);
-	    	}
-	        ResultSetMetaData rsmd = rs.getMetaData();
-	    int columnCount = rsmd.getColumnCount();
-	    for(int i = 1 ; i <= columnCount ; i++){
-	    /*column.setName(rsmd.getColumnName(i));
-	    column.setAutoIncrement(rsmd.isAutoIncrement(i));
-	    column.setType(rsmd.getColumnTypeName(i));
-	    column.setTypeCode(rsmd.getColumnType(i));
-	    column.setTableName(sqlTable.getName().toUpperCase());
-	    columns.add(column);*/
-	    	//columns.put(rsmd.getColumnName(i),rsmd.getColumnType(i));
-	    	columns.add(rsmd.getColumnName(i));
-	    	wildCard.append("?,");
-	    }
-	    rs.close();
-	    return columnCount;
+		jdbcTemplate.query(
+				"select COLUMN_NAME,DATA_TYPE,COLUMN_ID from all_tab_cols where TABLE_NAME ='LTM_TASK1' ORDER by column_id",
+				new ResultSetExtractor<Integer>() {
+
+					@Override
+					public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+/*
+						Map<String, Integer> map = new ResultSetHelper().ResultSetHelper(rs);
+						for (String key : map.keySet()) {
+							Integer value = map.get(key);
+							System.out.println("Key = " + key + ", Value = " + value);
+						}*/
+						while(rs.next()){
+							columns.add(rs.getString("COLUMN_NAME"));
+							wildCard.append("?,");
+							String sqlTypeStr = rs.getString("DATA_TYPE");
+							 String columnId=rs.getString("COLUMN_ID");
+						 }
+						
+						rs.close();
+						return 1;
+						
+					}
+				});
+		return columns;
 	}
-	});
-	return columns;
-	}
-public static StringBuilder getWildCard() {
-	return wildCard.delete(wildCard.length()-3, wildCard.length());
-	
-}
-public static List<String> getNewColumns(List<String> uiList,List<String> backendList){
 
-uiList.removeAll( backendList );
-return uiList;}
+	public static StringBuilder getWildCard() {
+		return wildCard.delete(wildCard.length() - 3, wildCard.length());
+
+	}
+
+	public static List<String> getNewColumns(List<String> uiList, List<String> backendList) {
+
+		uiList.removeAll(backendList);
+		return uiList;
+	}
 }
